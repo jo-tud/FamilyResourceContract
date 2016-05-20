@@ -17,5 +17,5 @@ uint public renewalPeriod = 7; // in days
 uint public requiredMarbles = 2; // of each type, every period
 uint public requiredExtraMarbles = 10; // number of extra marbles required for redeeming
 uint[] allowedDays = [1, 4]; // array of days on which the ressource may be used
-
+```
 In a future version this can be done using the constructor of the contruct.
