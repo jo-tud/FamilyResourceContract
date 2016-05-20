@@ -1,5 +1,8 @@
 # Family Resource Contract
 A contract for regulating access to resources made sparse by parents
+To try out the contract directly, visit https://ethereum.github.io/browser-solidity/#gist=070b32a5b5f5d28de74233ec6abd4c61
+
+Hint: simply use _1_ as the address for a child.
 
 ## Rationale
 This contract organizes access to sparce ressources for kids
@@ -9,12 +12,10 @@ A child must collect 2 red and 2 blue marbles by sunday in order to have compute
 
 For this example the initial variables must be set as follows:
 ```solidity
-uint public contractStart = 1462744800; // represents 05/09/2016 00:00:00, use e.g. http://www.timestampconvert.com/ to get your start timestamp
+uint public contractStart = 1462744800; // represents 05/09/2016 00:00:00
 uint public renewalPeriod = 7; // in days
 uint public requiredMarbles = 2; // of each type, every period
-uint public allowedUsages = 2; // times the ressource may be used per fulfillment of requirements
 uint public requiredExtraMarbles = 10; // number of extra marbles required for redeeming
-uint[] allowedDays = [1, 4]; // array of days on which the ressource may be used in the following period. If the Contract starts on Monday 00:00, day 0 is monday, day 6 is sunday.
-```
+uint[] allowedDays = [1, 4]; // array of days on which the ressource may be used
 
 In a future version this can be done using the constructor of the contruct.
