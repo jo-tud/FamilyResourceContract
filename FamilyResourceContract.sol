@@ -1,6 +1,6 @@
 contract FamilyResourceControl{
     
-    uint public contractStart;
+    uint public contractStart = 1462744800; // represents 05/09/2016 00:00:00, use e.g. http://www.timestampconvert.com/ to get your start timestamp
     uint public renewalPeriod = 7; // in days
     uint public requiredMarbles = 2; // of each type, every period
     uint public allowedUsages = 2; // times the ressource may be used per fulfillment of requirements
@@ -38,9 +38,6 @@ contract FamilyResourceControl{
         
         // create the parent
         parents[responsibleParent].canAward = true;
-        
-        //contractStart = now - 16 days;
-        contractStart = 1462744800; //05/09/2016 00:00:00
     }
     
     function awardIndianredMarble(address goodChild) {
