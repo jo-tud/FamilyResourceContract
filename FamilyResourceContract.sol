@@ -52,14 +52,14 @@ contract FamilyResourceControl{
     }
     
     // award a marble
-    function awardMarble(bytes32 whatMarble, address goodChild) onlyParent {
-        if (whatMarble == "indianredMarble") {
+    function awardMarble(uint whatMarble, address goodChild) onlyParent {
+        if (whatMarble == 0) {
             if (children[goodChild].indianredMarbles >= cumReqMarbles()+2){
                 children[goodChild].neonMarbles++;
             } else {
                 children[goodChild].indianredMarbles++;
             }
-        } else if (whatMarble == "skyblueMarble"){
+        } else if (whatMarble == 1){
             if (children[goodChild].skyblueMarbles >= cumReqMarbles()+2){
                 children[goodChild].neonMarbles++;
             } else {
