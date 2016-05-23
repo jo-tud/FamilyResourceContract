@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Family Resource Contract App</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href="./app.css" rel='stylesheet' type='text/css'>
+    <script src="./app.js"></script>
+</head>
+<body>
+<h1>Family Resource Contract</h1>
+<h2>The first smart family contract</h2>
+<h3>In each week, the kids will collect marbles for practicing their instrument (blue) or learning vocabulary (red).
+    When by the end of a week they collect 2 red and 2 blue marbles, they get access to the internet on Tuesday and 
+    Friday of the next week. Missed marbles have to be caught up with. If the kids practice more than 2 times a week 
+    in each discipline they get neon colored marbles. When 10 neon marbles have been collected they can be redeemed 
+    for a very special family event (like visiting a theme park, …)</h3>
+<br>
+Start date: <span id="startDate"></span>
+<h1>Award marble</h1>
+<br><label for="whatMarble">Color:   </label><input type="text" id="whatMarble" placeholder="0 = red, 1 = blue"/>
+<br><label for="child">Child: </label><input type="text" id="child" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae"/>
+<br><br>
+<button id="send" onclick="awardMarble()">Award them!</button>
+<button id="getMarbleBalane" onclick="refreshMarbleBalance()">Get balance!</button>
+<h3>You have <span class="black"><span id="blue"></span> red Marbles</span>,
+    <span class="black"><span id="red"></span> blue Marbles</span> and
+    <span class="black"><span id="neon"></span> neon Marbles</span></h3>
+
+<span id="status"></span>
+</body>
+</html>

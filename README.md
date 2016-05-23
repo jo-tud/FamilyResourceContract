@@ -8,7 +8,7 @@ Hint: simply use _1_ as the address for a child.
 This contract organizes access to sparce ressources for kids
 
 ## Example rules
-A child must collect 2 red and 2 blue marbles by sunday in order to have computer access at two fixed days in the following week (Tuesday and Friday). Marbles are awarded by the parent for learning vocabulary and practicing on an instrument missed marbles must be made up for. The contract starts on Monday, 59th of May, 00:00h
+A child can collect 2 red and 2 blue marbles by sunday in order to have computer access at two fixed days in the following week (Tuesday and Friday). Marbles are awarded by the parent for learning vocabulary and practicing on an instrument missed marbles must be made up for. The contract starts on Monday, 59th of May, 00:00h
 
 For this example the initial variables must be set as follows:
 ```solidity

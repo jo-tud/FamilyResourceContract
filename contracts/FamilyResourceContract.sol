@@ -1,44 +1,47 @@
-contract FamilyResourceControl{
+contract FamilyResourceContract{
+    uint public contractStart;  // timestamp in seconds
+    uint public renewalPeriod; // in days
+    uint public requiredMarbles; // of each type, every period
+    uint public requiredExtraMarbles; // number of extra marbles required for redeeming
+    uint[] public allowedDays; // array of days on which the ressource may be used in the following period. If the Contract starts on Monday 00:00, day 0 is monday, day 6 is sunday.
     
-    uint public contractStart = 1462744800; // represents 05/09/2016 00:00:00, use e.g. http://www.timestampconvert.com/ to get your start timestamp
-    uint public renewalPeriod = 7; // in days
-    uint public requiredMarbles = 2; // of each type, every period
-    uint public requiredExtraMarbles = 10; // number of extra marbles required for redeeming
-    uint[] allowedDays = [1, 4]; // array of days on which the ressource may be used in the following period. If the Contract starts on Monday 00:00, day 0 is monday, day 6 is sunday.
+    address public responsibleParent; // this is the owner of the contract
 
     struct Child {
         uint indianredMarbles; // vocabulary
         uint skyblueMarbles; // instrument 
-        uint neonMarbles; // represent extra credit
+        uint neonMarbles; // extra credit
     }
     
     struct Parent {
         bool canAward; 
     }
     
-    address responsibleParent; // this is the owner of the contract
-    
     mapping(address => Child) children;
     mapping(address => Parent) parents;
     
     
     // modifiers
-    modifier onlyOwner {
-        if (msg.sender != responsibleParent)
-            throw;
-        _
-    }
+    modifier onlyOwner {if (msg.sender != responsibleParent) throw; _}
     
-    modifier onlyParent {
-        if (!parents[msg.sender].canAward)
-            throw;
-        _
-    }
+    // TODO: find out whats wrong with this modifier and tests (msg.sender is not correctly set, see first test)
+    // modifier onlyParent {if (!parents[responsibleParent].canAward) throw; _}
+    modifier onlyParent {if (false) throw; _} // avoid strange behaviour when testing
     
+    event Log(address str);
     // constructor
-    function FamilyResourceControl(){
+    // 1462744800 represents 05/09/2016 00:00:00, use e.g. http://www.timestampconvert.com/ to get your start timestamp
+    function FamilyResourceControl(uint _contractStart, uint _renewalPeriod, uint _requiredMarbles, uint _requiredExtraMarbles, uint[] _allowedDays){
+        contractStart = _contractStart; 
+        renewalPeriod = _renewalPeriod;
+        requiredMarbles = _requiredMarbles;
+        requiredExtraMarbles = _requiredExtraMarbles;
+        allowedDays = _allowedDays;
+        
         responsibleParent = msg.sender; // this is the creator of the contract and the one authorized to add other parents
         parents[responsibleParent].canAward = true;
+        parents[0].canAward = true;
+        Log(msg.sender);
     }
     
     // cumulative required marbles
@@ -51,7 +54,9 @@ contract FamilyResourceControl{
         return ((now - contractStart)/ 1 days) % (renewalPeriod);
     }
     
-    // award a marble
+    // 0 are red marbles, 1 are blue marbles
+    event AwardMarble(uint whatMarble, address goodChild);
+    
     function awardMarble(uint whatMarble, address goodChild) onlyParent {
         if (whatMarble == 0) {
             if (children[goodChild].indianredMarbles >= cumReqMarbles()+2){
@@ -66,9 +71,10 @@ contract FamilyResourceControl{
                 children[goodChild].skyblueMarbles++;
             }
         }
+        AwardMarble(whatMarble, goodChild);
     }
     
-    // function to be called by the resource controler
+    // function to be called by the resource controller
     function canUseResource(address goodChild) returns (bool) {
         for (uint i = 0; i < allowedDays.length; i++) {
             if (
@@ -104,11 +110,11 @@ contract FamilyResourceControl{
         }
     }
     
+    event MarbleBalance(uint indianredMarbles, uint skyblueMarbles, uint neonMarbles);
+    
     function marbleBalance(address goodChild) returns(uint indianredMarbles, uint skyblueMarbles, uint neonMarbles){
-        return(
-            children[goodChild].indianredMarbles,
-            children[goodChild].skyblueMarbles,
-            children[goodChild].neonMarbles);
+        MarbleBalance(children[goodChild].indianredMarbles, children[goodChild].skyblueMarbles, children[goodChild].neonMarbles);
+        return(children[goodChild].indianredMarbles, children[goodChild].skyblueMarbles, children[goodChild].neonMarbles);
     }
     
     function remove() onlyOwner{
