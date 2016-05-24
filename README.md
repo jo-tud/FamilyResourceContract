@@ -1,10 +1,10 @@
 # Family Resource Contract
-A contract for regulating access to resources made sparse by parents
+A contract for regulating access to resources made sparse by parents.  
 To try out the contract directly, visit [browser-solidity](https://ethereum.github.io/browser-solidity/#gist=6f998f024189ed49a02670b47d065fc5).
 _Hint:_ simply use _1_ as the address for a child.
 
 ## Rationale
-This contract organizes access to sparce ressources for kids
+This contract organizes access to sparce ressources for kids.  
 Read my blog about the contract's story at [Medium](https://medium.com/@oaeee/the-first-smart-family-contract-b28cc86feb41).
 
 ## Disclaimer
